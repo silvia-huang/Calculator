@@ -71,7 +71,7 @@ const funs = [
     label: "C"
   },
   {
-    label: "done"
+    label: "="
   }
 ];
 class App extends React.Component {
