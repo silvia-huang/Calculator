@@ -156,7 +156,7 @@ class Calculator extends React.Component {
   render() {
     return (
       <div className="warp">
-        <input value={this.state.evalStr} onChange={this.inputOnChange} />
+        <input value={this.state.evalStr.toUpperCase()} onChange={this.inputOnChange} />
         <div className={this.error ? "result error" : "result"}>
           {this.state.result === "" ? this.error : this.state.result}
         </div>
