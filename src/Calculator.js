@@ -147,20 +147,25 @@ class Calculator extends React.Component {
   };
   //手动修改算式的处理方法
   inputOnChange = e => {
-    e.persist();
-    //算式显示区域可以手动修改算式
-    this.setState({
-      evalStr: e.target.value
-    });
+    if ("" === this.error) {
+      e.persist();
+      //算式显示区域可以手动修改算式
+      this.setState({
+        evalStr: e.target.value
+      });
+    }
   };
   render() {
     return (
       <div className="warp">
-        <input value={this.state.evalStr.toUpperCase()} onChange={this.inputOnChange} />
+        <input
+          value={this.state.evalStr.toUpperCase()}
+          onChange={this.inputOnChange}
+        />
+        {/* 显示计算结果和错误提示 */}
         <div className={this.error ? "result error" : "result"}>
           {this.state.result === "" ? this.error : this.state.result}
         </div>
-        {/* 显示计算结果和错误提示 */}
 
         {/* 引入方法按钮组件 */}
         <Actions click={this.actionsClick} funs={funs} />
