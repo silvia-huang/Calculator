@@ -1,5 +1,5 @@
 import React from "react";
-import "./Calculator.css";
+import "./Calculator.scss";
 function Numbers(props) {
   return (
     <div className="number_warp">
@@ -102,18 +102,17 @@ class Calculator extends React.Component {
   actionsClick = e => {
     // 如果有错误信息，只能点击C按钮
     // 如果点击C按钮清除 错误信息,算式，计算结果
+    let evalStr, result;
     if ("C" === e) {
       this.error = "";
-      this.setState({
-        evalStr: "",
-        result: ""
-      });
-      return;
-    }
-    if ("" === this.error) {
+      evalStr = "";
+      result = "";
+    } else {
+      if ("" != this.error) {
+        return;
+      }
       // 如果点击的=,计算算式。 如果错误显示错误提示
       if ("=" === e) {
-        let result = "";
         try {
           result = eval(this.state.evalStr);
         } catch (e) {
@@ -124,17 +123,15 @@ class Calculator extends React.Component {
           result = "";
           this.error = this.errorMsg;
         }
-        this.setState({
-          result
-        });
-        return;
+      } else {
+        // 如果点击是一般计算方法符号，在当前算术式后面累加
+        evalStr = this.state.evalStr + e;
       }
-
-      this.setState({
-        evalStr: this.state.evalStr + e
-      });
-      // 如果点击是一般计算方法符号，在当前算术式后面累加
     }
+    this.setState({
+      evalStr,
+      result
+    });
   };
   //数字按钮点击后的处理方法
   numClick = e => {
@@ -159,7 +156,7 @@ class Calculator extends React.Component {
     return (
       <div className="warp">
         <input
-          value={this.state.evalStr.toUpperCase()}
+          value={this.state.evalStr}
           onChange={this.inputOnChange}
         />
         {/* 显示计算结果和错误提示 */}
