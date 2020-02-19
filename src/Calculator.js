@@ -128,6 +128,8 @@ class Calculator extends React.Component {
         evalStr = this.state.evalStr + e;
       }
     }
+
+    // 同一个逻辑片段不管是逻辑还是肉眼上都要尽可能的减少setState的调用。
     this.setState({
       evalStr,
       result
@@ -175,3 +177,6 @@ class Calculator extends React.Component {
 }
 
 export default Calculator;
+
+//变量申明在class外部在文件加载的时候变量就会初始化，在没有调用该组件的时候是该变量会占用一定内存空间。
+//申明在class外部可以在需要的时候export出去给其他组件使用。
